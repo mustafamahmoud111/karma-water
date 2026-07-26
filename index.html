@@ -1,0 +1,1056 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Did you drink water?</title>
+<meta name="description" content="A question, every two hours, until the answer is yes." />
+<meta name="theme-color" content="#E2E6DF" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#101B1F" media="(prefers-color-scheme: dark)" />
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABWUlEQVR42s2XOwrCQBCGc4Q9Qm7gBSzSegEv4Dm8gNfQxkYRrCxsBC3SCqawsRCsIogIYrHmD0RXzWZ3Z/Lwh4Ggm5lvMzP78LwctYYLkVhQsgnPpGSQn9g0MVmRwbevCw7Kc4XBM0OMIG/mdQRXIXwVYFpj8Fc61IIjOWmPl6kxIESWe5KD/nqbGgMgYAGEpzi1RgB6i1BmwnPtAJh5JsZXoAEg798i1oI7AKr+cn/8AOA3Qke4A6if/luEVLgBDMJImoQxlQCoVW+SQ1fYAXQmq9y864SxeKcUABRWFF+kq/CORVGaASjBVQgWwGx/lFzBBwnApegYRakHQP7KUkEtFKfgeL2xg8MHuQZGuwMbAD7IAK79T1gPzG1os/wylmW7lZDSjob2+wAQZW1EhA1JOB3LkU/MTHcewH+We8D7WE69mHTnm3SBgeGZdTFp/Gr2F5fTpq7nT4xVu83uS0atAAAAAElFTkSuQmCC" />
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAFXklEQVR42u2dvYoUQRDH+xHmEfYNnAcw2NRsIuMFX8AXECa+FzDcQBMTQTC64FYQNLhgFQQvOFgUDjS5hUMEMRinjj49vJnZ2Z2Zrq//HwqO2+/u33RXVdd0hwBBEDSp7j07ntU2r62orYR1WhHbaqa5w/P4Y1a1VbBBtoptmUvv9Cx+0Q06bTLbxDbOpA3vS3ROcluyTxORxi06g82o7UuuOX6NDhBj62Q+Qv1BC1z1YkeDRYohH40t28qpOh+OniIHEVc+rBxzzkeD6rTFGN4+HD7djmE+BACEegZCRMz7sPKQ9C6GfltTwQwhH0LD3qt6aDCblmHuhy+wEwCs5xuuJ+gT97tpkEfHp9fmDIIcw3+0o9Oza8M08A8AVzV8J1+/X5u3GsMuANw0xP0XJ9WN6G9Pv70r+eOmEZ68+/QXAPrb2SgwawJg7m34v5HDaWDeBEDhcfh3Og0UriMA8vz/l7NooHQNwMWPn3cAoP8BAAc//vGbD1Wb6DEAYNxOv122AkCPAQDjqd9dcpIa9glA19XvbBTwB0Cfq9/RKOAPgD5Xv6NRwBcAXZ6/04jAFwBNcf8uGc8L+AGgKevXV4azgz4AoPz+1a/fBwNArzW6RuADgFfnF9VQ0XsAAONhn8Ow0D4AZ5dXowFA7wUAFNnTj+fV2KL3BAAK7MHLt9VUovcGAIYyfvvKUIbQJgBDYn5nuQF7ADx8/X5QzL9PboA+CwAY9vodRAW2AJjC6zceFdgBYMyEj6MEkQ0AKE9/yErfWKLPVrpWYAOA23f3cEnpXUX6AUgR8hkODXUDQGGYNCkLDfUCwD3vG/EH9AIwZarXUapYJwAc8b7R/IA+AA6p7OWSgopiXQCkyvM7Wi/QAwA5Vinz/GOuFwh2CvUAINnpU+wU6gBgjKpebgmtKpYPwO1dvLRL4C5ksgHgXOFzsnIoFwBtHr/SyEAmAFLTvAbTxfIA0BruKQ0P5QEgYW3fUQ2BLAAshHvKwkM5ADz//KXyKvrtrgGwFOsryxHwA4DOZ4WAFwCLiR5liSI+AKwmepQlingAQOeLgYAHAM1Lu8aWkAEAAAAAAAAAAICkAHhM+QpNEfMAoKGun1uJ7ivgAUBTbT+XEt1TwJcHgLplOg9AhkRQdyLIfCrYU+HHvkpYKMIHgKSNHaQp4UYTfABMuZWrdiXcipZ3OdhD8ee+Srz3IC8AKAa5q8RFIbwADD3KxaL3n7hUnL8kDGnh5OlfWQDAGWRx/mRVBWMUYLs/QAYA3n0BxmPp5NwY4nmFkHFHMVm3hnnMCzCfOSALAI+rhMx7Bci7O9jTGoGAzaVlbhDhISoQsmlUIwCFt7N/nM37t61oAmCOjSGn7XxBG0fOmwCYYXdQF51PNgtNwhaxLjq/Cm2qH1xJg0BzCRl9d4H7Ba+6ABC5X7DGbKHgcwPKLgByyecDathDkL6j8PME89Cl+gkbyecFSd5Uir6b8HODNmGXNBwdQ2lUSTea0ndRcmpY2QeATNOxsZwg0GcrOz42C31UP3Gp6SBEuvooxZrq+Hj6LIVHyC9DX8Wk0Fbjwch0cyV10JgOI70XvaeCw6DabNua/NHsC/QZGajcmpwzGq77QEHPoefSa+i1Cq/0w+b+FgjWBn58a1Eqzd9kDEWZKW0dDlXMC2wNN4512+6M+3tAsEBDqrVFGEMW/AGHVoYxpS00dG7LMIUwEji88lt8AjiGMh2+RUihGB2s0ehyQr3B3v6AKQGjAe9VXwZOxbQxHEQGR2/v9O7EIGRxRNigc6Zbz49tnAXJij5CKa3GUKmtYlvmQaviNDGPN5+UsE4rYlvNAgRB0KT6A0WJ6k+LqcqXAAAAAElFTkSuQmCC" />
+<link rel="manifest" href="manifest.webmanifest" />
+<style>
+/* ===========================================================
+   Did you drink water? — one screen, one question.
+   Edit here, then run `python3 build.py`.
+   =========================================================== */
+
+:root {
+  --bg:         #E4F4FA;
+  --bg-2:       #C9E9F4;
+  --ink:        #2B5563;
+  --ink-soft:   #7BA3AE;
+  --accent:     #2FADC4;
+  --accent-lit: #55CEE2;
+  --on-accent:  #FFFFFF;
+  --card:       #FFFFFF;
+  --pink:       #FF9CB4;
+  --pink-soft:  #FFD3DE;
+  --water:      #7ED8EA;
+  --water-back: #B9EBF4;
+
+  /* the cat keeps her own colours in both themes */
+  --fur:        #FFF8F2;
+  --fur-line:   #2B4C57;
+
+  --cute: "Chalkboard SE", "Marker Felt", "Comic Sans MS", "Segoe Print", cursive;
+  --ui:   "Avenir Next", "Avenir", "Nunito", "Segoe UI", system-ui, sans-serif;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:         #12303A;
+    --bg-2:       #1B4351;
+    --ink:        #D5EDF2;
+    --ink-soft:   #82A8B2;
+    --accent:     #4FC9DE;
+    --accent-lit: #7BDFF0;
+    --on-accent:  #06232C;
+    --card:       #1B3A45;
+    --pink:       #FF9CB4;
+    --pink-soft:  #F0AABB;
+    --water:      #3BB0C7;
+    --water-back: #2A8DA3;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg:         #12303A;
+  --bg-2:       #1B4351;
+  --ink:        #D5EDF2;
+  --ink-soft:   #82A8B2;
+  --accent:     #4FC9DE;
+  --accent-lit: #7BDFF0;
+  --on-accent:  #06232C;
+  --card:       #1B3A45;
+  --pink:       #FF9CB4;
+  --pink-soft:  #F0AABB;
+  --water:      #3BB0C7;
+  --water-back: #2A8DA3;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg:         #E4F4FA;
+  --bg-2:       #C9E9F4;
+  --ink:        #2B5563;
+  --ink-soft:   #7BA3AE;
+  --accent:     #2FADC4;
+  --accent-lit: #55CEE2;
+  --on-accent:  #FFFFFF;
+  --card:       #FFFFFF;
+  --pink:       #FF9CB4;
+  --pink-soft:  #FFD3DE;
+  --water:      #7ED8EA;
+  --water-back: #B9EBF4;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 15px;
+  line-height: 1.5;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- bubbles drifting up the back ---------- */
+
+.bubbles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+
+.bubbles span {
+  position: absolute;
+  bottom: -80px;
+  border-radius: 50%;
+  background: var(--bg-2);
+  opacity: .55;
+  animation: rise 18s linear infinite;
+}
+
+.bubbles span:nth-child(1) { left:  6%; width: 58px; height: 58px; animation-duration: 21s; }
+.bubbles span:nth-child(2) { left: 22%; width: 26px; height: 26px; animation-duration: 15s; animation-delay: -6s; }
+.bubbles span:nth-child(3) { left: 44%; width: 78px; height: 78px; animation-duration: 26s; animation-delay: -12s; }
+.bubbles span:nth-child(4) { left: 68%; width: 34px; height: 34px; animation-duration: 17s; animation-delay: -3s; }
+.bubbles span:nth-child(5) { left: 84%; width: 62px; height: 62px; animation-duration: 23s; animation-delay: -9s; }
+.bubbles span:nth-child(6) { left: 92%; width: 22px; height: 22px; animation-duration: 14s; animation-delay: -15s; }
+
+@keyframes rise {
+  from { transform: translateY(0) translateX(0); }
+  to   { transform: translateY(-120vh) translateX(24px); }
+}
+
+/* ---------- page ---------- */
+
+.page {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 34px 22px 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--cute);
+  font-weight: 700;
+  font-size: clamp(26px, 6.2vw, 40px);
+  line-height: 1.24;
+  color: var(--accent);
+  text-wrap: balance;
+}
+
+.sub {
+  margin: -8px 0 0;
+  font-size: 15px;
+  color: var(--ink-soft);
+  min-height: 1.4em;
+}
+
+/* ---------- the cat ---------- */
+
+.cat {
+  width: clamp(158px, 40vw, 205px);
+  height: auto;
+  display: block;
+  overflow: visible;
+  animation: sway 4.6s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  50%      { transform: rotate(2deg) translateY(-7px); }
+}
+
+.cat .fur { fill: var(--fur); stroke: var(--fur-line); stroke-width: 5.5; stroke-linejoin: round; }
+.cat .paw { stroke-width: 4.5; }
+.cat .inner-ear { fill: var(--pink-soft); }
+.cat .blush { fill: var(--pink); opacity: .85; }
+.cat .eye { fill: var(--fur-line); animation: blink 5.6s infinite; transform-box: fill-box; transform-origin: center; }
+.cat .eye--right { animation-delay: .04s; }
+
+@keyframes blink {
+  0%, 93%, 100% { transform: scaleY(1); }
+  96%           { transform: scaleY(.1); }
+}
+
+.cat .eyes-happy { display: none; }
+.cat .eyes-happy path { fill: none; stroke: var(--fur-line); stroke-width: 5; stroke-linecap: round; }
+.cat .nose { fill: var(--pink); }
+.cat .mouth { fill: none; stroke: var(--fur-line); stroke-width: 4; stroke-linecap: round; }
+.cat .cup { fill: none; stroke: var(--fur-line); stroke-width: 4.5; stroke-linejoin: round; }
+
+/* the parts only some of the nine wear */
+.cat .line { fill: none; stroke: var(--fur-line); stroke-width: 5; stroke-linecap: round; }
+.cat .brow { fill: none; stroke: var(--fur-line); stroke-width: 4; stroke-linecap: round; }
+.cat .mouth-o { fill: var(--fur-line); }
+.cat .shine { fill: #FFFFFF; }
+.cat .cap { fill: var(--pink); stroke: var(--fur-line); stroke-width: 4.5; stroke-linejoin: round; }
+.cat .zzz path { fill: none; stroke: var(--fur-line); stroke-width: 4.5; stroke-linejoin: round; stroke-linecap: round; }
+.cat .zzz { animation: drowse 3s ease-in-out infinite; }
+.cat .twinkle path { fill: var(--pink); }
+.cat .twinkle { animation: twinkle 2.2s ease-in-out infinite; }
+.cat .bubble { fill: #FFFFFF; opacity: .5; animation: bob-up 3.6s ease-in-out infinite; }
+.cat .bubble:nth-of-type(2) { animation-delay: -1.2s; }
+.cat .bubble:nth-of-type(3) { animation-delay: -2.4s; }
+
+@keyframes drowse {
+  0%, 100% { opacity: .35; transform: translateY(3px); }
+  50%      { opacity: 1;   transform: translateY(-4px); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: .3; }
+  50%      { opacity: 1; }
+}
+
+@keyframes bob-up {
+  0%, 100% { transform: translateY(0); opacity: .5; }
+  50%      { transform: translateY(-9px); opacity: .85; }
+}
+.cat .wave { fill: var(--water); animation: drift 4s linear infinite; }
+.cat .wave--back { fill: var(--water-back); animation-duration: 6s; animation-direction: reverse; }
+
+@keyframes drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(24px); }
+}
+
+.cat .sparks circle { fill: var(--pink); opacity: 0; }
+
+/* she said yes: eyes squint, cat hops, glass empties, sparkles pop */
+.cat.is-drunk { animation: hop .55s cubic-bezier(.3,1.6,.5,1) 2; }
+.cat.is-drunk .eyes-open { display: none; }
+.cat.is-drunk .eyes-happy { display: block; }
+.cat.is-drunk .water { animation: drain 1.2s ease-in-out; }
+.cat.is-drunk .sparks circle { animation: pop 1.1s ease-out; }
+.cat.is-drunk .sparks circle:nth-child(2) { animation-delay: .12s; }
+.cat.is-drunk .sparks circle:nth-child(3) { animation-delay: .06s; }
+.cat.is-drunk .sparks circle:nth-child(4) { animation-delay: .18s; }
+
+@keyframes hop {
+  0%, 100% { transform: translateY(0) scale(1); }
+  40%      { transform: translateY(-22px) scale(1.04); }
+}
+
+@keyframes drain {
+  0%   { transform: translateY(0); }
+  40%  { transform: translateY(34px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes pop {
+  0%   { opacity: 0; transform: scale(.3); }
+  35%  { opacity: 1; transform: scale(1.25); }
+  100% { opacity: 0; transform: scale(.8) translateY(-14px); }
+}
+
+/* ---------- yes / no ---------- */
+
+.answers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  appearance: none;
+  font-family: var(--ui);
+  font-weight: 700;
+  font-size: 21px;
+  padding: 15px 44px;
+  border-radius: 999px;
+  border: 3px solid var(--accent);
+  cursor: pointer;
+  max-width: 90vw;
+  white-space: nowrap;
+  transition: transform .18s cubic-bezier(.3,1.5,.5,1), background .18s ease,
+              font-size .2s ease, padding .2s ease, left .16s ease, top .16s ease;
+}
+
+.pill--yes {
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 0 10px 22px -10px var(--accent);
+}
+
+.pill--yes:hover { background: var(--accent-lit); border-color: var(--accent-lit); animation: wiggle .5s ease-in-out; }
+.pill--yes:active { transform: scale(.96); }
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0) scale(1.05); }
+  30%      { transform: rotate(-3deg) scale(1.06); }
+  65%      { transform: rotate(3deg) scale(1.06); }
+}
+
+.pill--no {
+  background: var(--card);
+  color: var(--accent);
+}
+
+.pill--no.is-loose { position: fixed; margin: 0; z-index: 5; }
+
+/* ---------- between questions ---------- */
+
+.page[data-mode="asking"]  .waiting-bits { display: none; }
+.page[data-mode="waiting"] .answers      { display: none; }
+
+.waiting-bits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.ticks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+  max-width: 320px;
+}
+
+.tick { width: 15px; height: 21px; opacity: .25; transition: opacity .3s ease; }
+.tick.is-full { opacity: 1; }
+.tick path { fill: var(--accent); }
+
+.clock { margin: 0; font-size: 15px; color: var(--ink-soft); }
+.clock b { font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+.row { display: flex; gap: 18px; align-items: center; }
+
+.link {
+  appearance: none;
+  border: 0;
+  background: none;
+  font-family: var(--ui);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 6px 2px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.link:hover { color: var(--accent-lit); }
+.link[disabled] { color: var(--ink-soft); opacity: .55; cursor: default; text-decoration: none; }
+
+:where(button):focus-visible {
+  outline: 3px solid var(--pink);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  .bubbles { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="bubbles" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<main class="page" id="page" data-mode="waiting">
+
+  <h1 class="title" id="title">Did you drink water?</h1>
+
+  <svg class="cat" id="cat" viewBox="0 0 200 210" role="img"
+       aria-label="A cat holding a glass of water"><!-- drawn by cats.js --></svg>
+
+  <p class="sub" id="sub"></p>
+
+  <div class="answers">
+    <button class="pill pill--yes" id="yes" type="button">Yes</button>
+    <button class="pill pill--no" id="no" type="button" aria-disabled="true" tabindex="-1">No</button>
+  </div>
+
+  <div class="waiting-bits">
+    <div class="ticks" id="ticks" aria-label="Glasses today"></div>
+    <p class="clock" id="clock"></p>
+    <div class="row">
+      <button class="link" id="log" type="button">I drank one just now</button>
+      <button class="link" id="undo" type="button">Undo</button>
+    </div>
+  </div>
+</main>
+
+<script>
+/* ===========================================================
+   Nine cats. Same cat, nine moods — she gets a different one
+   every time the question comes back.
+
+   All of them are hand-drawn SVG paths sharing the classes in
+   app.css, so they blink, sway and squint with no extra work.
+   =========================================================== */
+
+const Cats = (() => {
+
+  /* ---------- parts they share ---------- */
+
+  const EARS = `
+    <path class="fur" d="M47 56C41 34 35 16 40 12s28 12 46 21Z" />
+    <path class="fur" d="M153 56c6-22 12-40 7-44s-28 12-46 21Z" />
+    <path class="inner-ear" d="M53 47C49 33 46 25 48 22s15 8 26 14Z" />
+    <path class="inner-ear" d="M147 47c4-14 7-22 5-25s-15 8-26 14Z" />`;
+
+  /* the same ears, one swung out sideways — less impressed */
+  const EARS_FOLDED = `
+    <path class="fur" d="M47 56C41 34 35 16 40 12s28 12 46 21Z" />
+    <path class="inner-ear" d="M53 47C49 33 46 25 48 22s15 8 26 14Z" />
+    <g transform="rotate(36 152 56)">
+      <path class="fur" d="M153 56c6-22 12-40 7-44s-28 12-46 21Z" />
+      <path class="inner-ear" d="M147 47c4-14 7-22 5-25s-15 8-26 14Z" />
+    </g>`;
+
+  const BODY = `<path class="fur" d="M100 30C59 30 26 66 26 110s33 80 74 80 74-36 74-80S141 30 100 30Z" />`;
+  const BODY_LOAF = `<path class="fur" d="M100 56C54 56 22 84 22 124s36 66 78 66 78-26 78-66S146 56 100 56Z" />`;
+
+  const blush = (x1, x2, y) => `
+    <ellipse class="blush" cx="${x1}" cy="${y}" rx="14" ry="8.5" />
+    <ellipse class="blush" cx="${x2}" cy="${y}" rx="14" ry="8.5" />`;
+
+  /* open eyes, and the squint she gets when the answer is yes */
+  const eyes = (lx, rx, y, w = 8.5, h = 10.5, shine = false) => `
+    <g class="eyes-open">
+      <ellipse class="eye" cx="${lx}" cy="${y}" rx="${w}" ry="${h}" />
+      <ellipse class="eye eye--right" cx="${rx}" cy="${y}" rx="${w}" ry="${h}" />
+      ${shine ? `<circle class="shine" cx="${lx + 3}" cy="${y - 4}" r="3.2" />
+                 <circle class="shine" cx="${rx + 3}" cy="${y - 4}" r="3.2" />` : ""}
+    </g>
+    ${happy(lx, rx, y)}`;
+
+  /* eyes that are already shut — sleeping, or thoroughly content */
+  const shut = (lx, rx, y, depth = 9) => `
+    <g class="eyes-open">
+      <path class="line" d="M${lx - 10} ${y}q10 ${depth} 20 0" />
+      <path class="line" d="M${rx - 10} ${y}q10 ${depth} 20 0" />
+    </g>
+    ${happy(lx, rx, y)}`;
+
+  const happy = (lx, rx, y) => `
+    <g class="eyes-happy">
+      <path d="M${lx - 10} ${y + 4}q10-13 20 0" />
+      <path d="M${rx - 10} ${y + 4}q10-13 20 0" />
+    </g>`;
+
+  const NOSE = `<path class="nose" d="M95 117h10l-5 7Z" />`;
+  const nose = (y) => `<path class="nose" d="M95 ${y}h10l-5 7Z" />`;
+
+  const MOUTH = `<path class="mouth" d="M88 126q6 10 12 0q6 10 12 0" />`;
+  const MOUTH_FLAT = `<path class="mouth" d="M88 129h24" />`;
+  const MOUTH_FROWN = `<path class="mouth" d="M88 133q6-9 12 0q6-9 12 0" />`;
+  const MOUTH_GRIN = `<path class="mouth" d="M86 124q14 16 28 0" />`;
+  const MOUTH_O = `<ellipse class="mouth-o" cx="100" cy="130" rx="5" ry="6.5" />`;
+
+  const paws = (y = 179) => `
+    <ellipse class="fur paw" cx="66" cy="${y}" rx="17" ry="12" />
+    <ellipse class="fur paw" cx="134" cy="${y}" rx="17" ry="12" />`;
+
+  /* the glass, with water that never stops moving */
+  const glass = (transform = "") => `
+    <g ${transform ? `transform="${transform}"` : ""}>
+      <clipPath id="cup"><path d="M89 155 92.5 184q7.5 3.5 15 0L111 155Z" /></clipPath>
+      <g class="water" clip-path="url(#cup)">
+        <path class="wave wave--back" d="M50 168q6-4 12 0t12 0t12 0t12 0t12 0t12 0t12 0V200H50Z" />
+        <path class="wave wave--front" d="M50 172q6-3 12 0t12 0t12 0t12 0t12 0t12 0t12 0V200H50Z" />
+      </g>
+      <path class="cup" d="M87 152 91 186q9 4 18 0l4-34Z" />
+    </g>`;
+
+  /* a proper bottle, for the ambitious days */
+  const BOTTLE = `
+    <clipPath id="bot"><path d="M86 136h28v48q0 8-14 8t-14-8Z" /></clipPath>
+    <g class="water" clip-path="url(#bot)">
+      <path class="wave wave--back" d="M50 150q7-5 14 0t14 0t14 0t14 0t14 0t14 0V200H50Z" />
+      <path class="wave wave--front" d="M50 155q7-4 14 0t14 0t14 0t14 0t14 0t14 0V200H50Z" />
+    </g>
+    <path class="cup" d="M86 136h28v48q0 8-14 8t-14-8Z" />
+    <path class="cup" d="M94 136v-13h12v13" />
+    <path class="cup cap" d="M92 123h16v-10H92Z" />`;
+
+  const SPARKS = `
+    <g class="twinkle">
+      <path d="M40 62l3 8 8 3-8 3-3 8-3-8-8-3 8-3Z" />
+      <path d="M162 44l2.5 6.5 6.5 2.5-6.5 2.5-2.5 6.5-2.5-6.5-6.5-2.5 6.5-2.5Z" />
+    </g>`;
+
+  const ZS = `
+    <g class="zzz">
+      <path d="M164 54h15l-15 17h15" />
+      <path d="M184 28h11l-11 13h11" />
+    </g>`;
+
+  /* ---------- the nine ---------- */
+
+  const CATS = [
+    {
+      name: "the usual",
+      art: EARS + BODY + blush(49, 151, 127) + eyes(76, 124, 104) + NOSE + MOUTH + paws() + glass(),
+    },
+    {
+      name: "pleading",
+      art: EARS + BODY + blush(47, 153, 130) + eyes(74, 126, 106, 11, 13, true) +
+        `<path class="brow" d="M60 84q12-7 22-3" /><path class="brow" d="M140 84q-12-7-22-3" />` +
+        nose(121) + `<path class="mouth" d="M89 130q5.5 8 11 0q5.5 8 11 0" />` +
+        paws(172) + glass(),
+    },
+    {
+      name: "unimpressed",
+      art: EARS_FOLDED + BODY + blush(49, 151, 127) + eyes(86, 132, 104, 7.5, 9.5) +
+        NOSE + MOUTH_FLAT + paws() + glass("translate(-26 2) rotate(-6 100 170)"),
+    },
+    {
+      name: "delighted",
+      art: EARS + BODY + blush(47, 153, 128) + shut(76, 124, 100, -11) +
+        NOSE + MOUTH_GRIN + SPARKS + paws(174) + glass(),
+    },
+    {
+      name: "sleepy",
+      art: EARS + BODY + blush(49, 151, 128) + shut(76, 124, 104) +
+        NOSE + MOUTH_O + ZS + paws() + glass(),
+    },
+    {
+      name: "the whole bottle",
+      art: EARS + BODY + blush(47, 153, 126) + eyes(76, 124, 102) +
+        nose(115) + `<path class="mouth" d="M88 124q12 13 24 0" />` +
+        `<ellipse class="fur paw" cx="70" cy="168" rx="16" ry="11" />
+         <ellipse class="fur paw" cx="130" cy="172" rx="16" ry="11" />` +
+        `<g transform="translate(0 18)">${BOTTLE}</g>`,
+    },
+    {
+      name: "loaf",
+      art: `<g transform="translate(0 26)">${EARS}</g>` + BODY_LOAF + blush(46, 154, 140) + shut(76, 124, 118) +
+        nose(131) + `<path class="mouth" d="M88 140q6 9 12 0q6 9 12 0" />` + glass(),
+    },
+    {
+      name: "waving",
+      art: EARS + BODY + blush(52, 152, 127) + eyes(78, 126, 104) + NOSE + MOUTH_GRIN +
+        `<ellipse class="fur paw" cx="28" cy="102" rx="19" ry="13" transform="rotate(-34 28 102)" />
+         <ellipse class="fur paw" cx="118" cy="181" rx="17" ry="12" />` +
+        glass("translate(-32 0)"),
+    },
+    {
+      name: "up to her ears",
+      art: EARS + BODY + blush(49, 151, 122) + eyes(76, 124, 100, 9.5, 12) + nose(113) +
+        `<path class="mouth" d="M89 122q5.5 8 11 0q5.5 8 11 0" />` +
+        `<clipPath id="frame"><rect x="0" y="0" width="200" height="210" /></clipPath>
+         <g class="water" clip-path="url(#frame)">
+           <path class="wave wave--back" d="M-10 150q15-9 30 0t30 0t30 0t30 0t30 0t30 0t30 0V220H-10Z" />
+           <path class="wave wave--front" d="M-10 158q15-8 30 0t30 0t30 0t30 0t30 0t30 0t30 0V220H-10Z" />
+         </g>
+         <circle class="bubble" cx="48" cy="176" r="6" />
+         <circle class="bubble" cx="160" cy="184" r="4.5" />
+         <circle class="bubble" cx="132" cy="170" r="3.5" />`,
+    },
+  ];
+
+  /* Which cat she gets: one step further round the ring for every glass,
+     offset by the day so tomorrow does not open the same way. */
+  function indexFor(glassesToday, date = new Date()) {
+    const day = Math.floor(date.getTime() / 86400000);
+    return (((glassesToday + day) % CATS.length) + CATS.length) % CATS.length;
+  }
+
+  return {
+    count: CATS.length,
+    indexFor,
+    art: (i) => CATS[((i % CATS.length) + CATS.length) % CATS.length].art,
+    name: (i) => CATS[((i % CATS.length) + CATS.length) % CATS.length].name,
+  };
+})();
+
+if (typeof module !== "undefined") module.exports = Cats;
+
+</script>
+<script>
+/* ===========================================================
+   Did you drink water? — shared behaviour for the extension
+   and the web app. A host supplies a `store` adapter:
+
+   store = {
+     ownsScheduling,          // true when this page must nag by itself
+     load(), save(state), subscribe(fn),
+     notify(payload),         // optional
+     onTick(view),            // optional
+   }
+
+   The knobs are right below. Change them here, then run
+   `python3 build.py`.
+   =========================================================== */
+
+const WaterCheck = (() => {
+  const MIN = 60 * 1000;
+
+  const SETTINGS = {
+    name: "Karma",
+    intervalMinutes: 120,     // how often she gets asked
+    goal: 8,                  // glasses in a day
+    dayStart: "08:00",        // no asking before this
+    dayEnd: "23:00",          // ...or after this
+    sound: true,              // a small chime with the pop-up (web app only)
+  };
+
+  const NAG_EVERY = 2 * MIN;  // an unanswered pop-up comes back this often
+  const PRAISE_MS = 5000;
+
+  const PRAISE = [
+    "Good. Now we wait.",
+    "That's the one. Thank you.",
+    "See? Painless.",
+    "Noted. Two hours.",
+  ];
+
+  /* ---------- time ---------- */
+
+  const pad = (n) => String(n).padStart(2, "0");
+
+  const dateKey = (d = new Date()) =>
+    `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+
+  function atTime(base, hhmm) {
+    const [h, m] = String(hhmm).split(":").map(Number);
+    const d = new Date(base);
+    d.setHours(h || 0, m || 0, 0, 0);
+    return d.getTime();
+  }
+
+  function windowFor(ts, s) {
+    const start = atTime(ts, s.dayStart);
+    let end = atTime(ts, s.dayEnd);
+    if (end <= start) end += 24 * 60 * MIN;   // a day that runs past midnight
+    return { start, end };
+  }
+
+  function awake(ts, s) {
+    const { start, end } = windowFor(ts, s);
+    return ts >= start && ts <= end;
+  }
+
+  // Never ask while she's asleep — push it to the next waking hour.
+  function clampToWindow(ts, s) {
+    const { start, end } = windowFor(ts, s);
+    if (ts < start) return start;
+    if (ts > end) return atTime(ts + 24 * 60 * MIN, s.dayStart);
+    return ts;
+  }
+
+  const clockTime = (ts) => {
+    const d = new Date(ts);
+    return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  };
+
+  function countdown(ms) {
+    const total = Math.max(0, Math.round(ms / 1000));
+    const h = Math.floor(total / 3600);
+    const m = Math.floor((total % 3600) / 60);
+    const s = total % 60;
+    return h ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
+  }
+
+  function gapWords(ms) {
+    const mins = Math.round(ms / MIN);
+    if (mins < 2) return "a minute";
+    if (mins < 60) return `${mins} minutes`;
+    const h = Math.floor(mins / 60);
+    const rest = mins % 60;
+    return rest ? `${h}h ${rest}m` : `${h} hour${h === 1 ? "" : "s"}`;
+  }
+
+  /* ---------- state ---------- */
+
+  function normalise(raw) {
+    const state = raw && typeof raw === "object" ? raw : {};
+    const fresh = !raw || typeof raw.nextDue !== "number";
+    state.settings = Object.assign({}, SETTINGS);
+    state.log = state.log && typeof state.log === "object" ? state.log : {};
+    if (typeof state.pending !== "number") state.pending = null;
+
+    if (fresh) {
+      // First run: ask straight away, so she meets the cat instead of a timer.
+      const now = Date.now();
+      if (awake(now, state.settings)) {
+        state.pending = now;
+        state.nextDue = now;
+      } else {
+        state.nextDue = clampToWindow(now, state.settings);
+      }
+    }
+    const keys = Object.keys(state.log).sort();
+    while (keys.length > 14) delete state.log[keys.shift()];   // keep a fortnight
+    return state;
+  }
+
+  const entriesFor = (state, key = dateKey()) =>
+    (state.log[key] || []).slice().sort((a, b) => a - b);
+
+  const lastGlass = (state) => {
+    const list = entriesFor(state);
+    return list.length ? list[list.length - 1] : null;
+  };
+
+  /* The only thing that puts the question down. */
+  function drink(state, now = Date.now()) {
+    const key = dateKey(new Date(now));
+    state.log[key] = entriesFor(state, key).concat(now);
+    state.pending = null;
+    state.nextDue = clampToWindow(now + state.settings.intervalMinutes * MIN, state.settings);
+    return state;
+  }
+
+  function notificationText(state) {
+    const last = lastGlass(state);
+    const tail = last
+      ? `Last glass at ${clockTime(last)}. Click to answer.`
+      : "Nothing logged today. Click to answer.";
+    return { title: `Hey ${state.settings.name}.`, body: `Did you drink water?\n${tail}` };
+  }
+
+  /* ---------- mount ---------- */
+
+  async function mount(store) {
+    const $ = (id) => document.getElementById(id);
+    const el = {
+      page: $("page"), title: $("title"), sub: $("sub"), cat: $("cat"),
+      yes: $("yes"), no: $("no"),
+      ticks: $("ticks"), clock: $("clock"), log: $("log"), undo: $("undo"),
+    };
+
+    let state = normalise(await store.load());
+    let mode = null;
+    let lastKey = dateKey();
+    let lastNagAt = 0;
+    let dodges = 0;
+    let praiseUntil = 0;
+    let praiseLine = PRAISE[0];
+    let audio = null;
+    let gladTimer = null;
+
+    /* ---------- a small chime ---------- */
+
+    function unlockAudio() {
+      if (audio) { if (audio.state === "suspended") audio.resume(); return; }
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (Ctx) audio = new Ctx();
+    }
+    document.addEventListener("pointerdown", unlockAudio);
+
+    function chime() {
+      if (!state.settings.sound || !audio || audio.state !== "running") return;
+      const t0 = audio.currentTime;
+      [[880, 0], [660, 0.2]].forEach(([freq, offset]) => {
+        const osc = audio.createOscillator();
+        const gain = audio.createGain();
+        osc.type = "sine";
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.0001, t0 + offset);
+        gain.gain.exponentialRampToValueAtTime(0.16, t0 + offset + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t0 + offset + 0.2);
+        osc.connect(gain).connect(audio.destination);
+        osc.start(t0 + offset);
+        osc.stop(t0 + offset + 0.22);
+      });
+    }
+
+    /* ---------- the No that will not be caught ---------- */
+
+    function dodge() {
+      if (!el.no.classList.contains("is-loose")) {
+        const r = el.no.getBoundingClientRect();
+        el.no.style.width = `${r.width}px`;
+        el.no.style.height = `${r.height}px`;
+        el.no.style.left = `${r.left}px`;
+        el.no.style.top = `${r.top}px`;
+        el.no.classList.add("is-loose");
+      }
+
+      dodges += 1;
+      const w = el.no.offsetWidth;
+      const h = el.no.offsetHeight;
+      const maxX = Math.max(8, window.innerWidth - w - 8);
+      const maxY = Math.max(8, window.innerHeight - h - 8);
+      el.no.style.left = `${8 + Math.random() * (maxX - 8)}px`;
+      el.no.style.top = `${8 + Math.random() * (maxY - 8)}px`;
+
+      // Yes gets a little bigger every time she tries.
+      const grow = Math.min(dodges, 5);
+      el.yes.style.fontSize = `${21 + grow * 2.4}px`;
+      el.yes.style.padding = `${15 + grow * 1.6}px ${44 + grow * 4.5}px`;
+    }
+
+    function resetNo() {
+      dodges = 0;
+      el.no.className = "pill pill--no";
+      el.no.removeAttribute("style");
+      el.yes.removeAttribute("style");
+    }
+
+    el.no.addEventListener("mouseover", dodge);
+    el.no.addEventListener("pointerdown", (e) => { e.preventDefault(); dodge(); });
+    el.no.addEventListener("click", (e) => { e.preventDefault(); dodge(); });
+    el.no.addEventListener("touchstart", (e) => { e.preventDefault(); dodge(); }, { passive: false });
+
+    window.addEventListener("resize", () => {
+      if (!el.no.classList.contains("is-loose")) return;
+      const x = Math.min(parseFloat(el.no.style.left) || 0, window.innerWidth - el.no.offsetWidth - 8);
+      const y = Math.min(parseFloat(el.no.style.top) || 0, window.innerHeight - el.no.offsetHeight - 8);
+      el.no.style.left = `${Math.max(8, x)}px`;
+      el.no.style.top = `${Math.max(8, y)}px`;
+    });
+
+    /* ---------- yes ---------- */
+
+    function sayYes() {
+      unlockAudio();
+      drink(state);
+      praiseUntil = Date.now() + PRAISE_MS;
+      praiseLine = PRAISE[Math.floor(Math.random() * PRAISE.length)];
+      resetNo();
+      store.save(state);
+
+      clearTimeout(gladTimer);                   // she hops, the glass empties and refills
+      el.cat.classList.remove("is-drunk");
+      void el.cat.offsetWidth;
+      el.cat.classList.add("is-drunk");
+      gladTimer = setTimeout(() => {
+        el.cat.classList.remove("is-drunk");
+        renderCat(true);                       // next cat, next question
+      }, 1300);
+
+      render();
+    }
+
+    el.yes.addEventListener("click", sayYes);
+    el.log.addEventListener("click", sayYes);
+
+    el.undo.addEventListener("click", () => {
+      const key = dateKey();
+      const list = entriesFor(state, key);
+      if (!list.length) return;
+      list.pop();
+      state.log[key] = list;
+      store.save(state);
+      render();
+    });
+
+    /* ---------- render ---------- */
+
+    /* A different cat every time the question comes back. The swap waits
+       until the celebration is over, so she does not change mid-hop. */
+    let shownCat = -1;
+
+    function renderCat(force) {
+      if (typeof Cats === "undefined") return;
+      const want = Cats.indexFor(entriesFor(state).length);
+      if (want === shownCat) return;
+      if (!force && el.cat.classList.contains("is-drunk")) return;
+      shownCat = want;
+      el.cat.innerHTML = Cats.art(want);
+    }
+
+    function renderTicks() {
+      const count = entriesFor(state).length;
+      const total = Math.max(state.settings.goal, count);
+      el.ticks.textContent = "";
+      for (let i = 0; i < total; i++) {
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("viewBox", "0 0 20 28");
+        svg.setAttribute("class", `tick${i < count ? " is-full" : ""}`);
+        svg.setAttribute("aria-hidden", "true");
+        svg.innerHTML = '<path d="M10 1c0 0 8.6 10.2 8.6 15.4a8.6 8.6 0 0 1-17.2 0C1.4 11.2 10 1 10 1Z" />';
+        el.ticks.appendChild(svg);
+      }
+    }
+
+    function render() {
+      const now = Date.now();
+      const s = state.settings;
+      const count = entriesFor(state).length;
+      const next = state.pending ? "asking" : "waiting";
+
+      if (mode !== next) {
+        mode = next;
+        el.page.dataset.mode = mode;
+        if (mode === "asking") {
+          resetNo();
+          requestAnimationFrame(() => el.yes.focus());
+        }
+      }
+
+      if (mode === "asking") {
+        el.title.textContent = `${s.name}, did you drink water?`;
+        const last = lastGlass(state);
+        el.sub.textContent = last
+          ? `it has been ${gapWords(now - last)} since your last glass.`
+          : "nothing logged today yet.";
+      } else {
+        el.title.textContent = now < praiseUntil
+          ? praiseLine
+          : count
+            ? `${count} of ${s.goal} glasses today`
+            : "No water yet today";
+        el.sub.textContent = "";
+      }
+
+      renderCat();
+      renderTicks();
+      el.undo.disabled = count === 0;
+      tick();
+    }
+
+    function tick() {
+      const now = Date.now();
+
+      if (dateKey() !== lastKey) { lastKey = dateKey(); render(); return; }
+
+      if (store.ownsScheduling) {
+        if (!state.pending && now >= state.nextDue) {
+          if (awake(now, state.settings)) {
+            state.pending = now;
+            lastNagAt = 0;
+            store.save(state);
+            render();
+            return;
+          }
+          state.nextDue = clampToWindow(now, state.settings);
+          store.save(state);
+        }
+        if (state.pending && now - lastNagAt > NAG_EVERY) {
+          lastNagAt = now;
+          if (store.notify) store.notify(notificationText(state));
+          chime();
+        }
+      }
+
+      if (mode === "waiting") {
+        if (praiseUntil && now > praiseUntil) { praiseUntil = 0; render(); return; }
+        const { start } = windowFor(now, state.settings);
+        el.clock.innerHTML = `${now < start ? "first check in" : "next check in"} <b></b>`;
+        el.clock.querySelector("b").textContent = countdown(state.nextDue - now);
+      }
+
+      if (store.onTick) {
+        store.onTick({
+          mode,
+          clock: countdown(state.nextDue - now),
+          count: entriesFor(state).length,
+          goal: state.settings.goal,
+          name: state.settings.name,
+        });
+      }
+    }
+
+    if (store.subscribe) {
+      store.subscribe((incoming) => { state = normalise(incoming); render(); });
+    }
+
+    render();
+    setInterval(tick, 1000);
+  }
+
+  return {
+    mount, normalise, dateKey, entriesFor, lastGlass, drink,
+    clampToWindow, windowFor, awake, notificationText,
+    SETTINGS, MIN, NAG_EVERY,
+  };
+})();
+
+if (typeof module !== "undefined") module.exports = WaterCheck;
+
+</script>
+<script>
+
+/* Web adapter: state lives in localStorage and this tab does the nagging.
+   Pop-ups arrive while the tab is open; the extension covers the rest. */
+
+const KEY = "watercheck.v1";
+const ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAFXklEQVR42u2dvYoUQRDH+xHmEfYNnAcw2NRsIuMFX8AXECa+FzDcQBMTQTC64FYQNLhgFQQvOFgUDjS5hUMEMRinjj49vJnZ2Z2Zrq//HwqO2+/u33RXVdd0hwBBEDSp7j07ntU2r62orYR1WhHbaqa5w/P4Y1a1VbBBtoptmUvv9Cx+0Q06bTLbxDbOpA3vS3ROcluyTxORxi06g82o7UuuOX6NDhBj62Q+Qv1BC1z1YkeDRYohH40t28qpOh+OniIHEVc+rBxzzkeD6rTFGN4+HD7djmE+BACEegZCRMz7sPKQ9C6GfltTwQwhH0LD3qt6aDCblmHuhy+wEwCs5xuuJ+gT97tpkEfHp9fmDIIcw3+0o9Oza8M08A8AVzV8J1+/X5u3GsMuANw0xP0XJ9WN6G9Pv70r+eOmEZ68+/QXAPrb2SgwawJg7m34v5HDaWDeBEDhcfh3Og0UriMA8vz/l7NooHQNwMWPn3cAoP8BAAc//vGbD1Wb6DEAYNxOv122AkCPAQDjqd9dcpIa9glA19XvbBTwB0Cfq9/RKOAPgD5Xv6NRwBcAXZ6/04jAFwBNcf8uGc8L+AGgKevXV4azgz4AoPz+1a/fBwNArzW6RuADgFfnF9VQ0XsAAONhn8Ow0D4AZ5dXowFA7wUAFNnTj+fV2KL3BAAK7MHLt9VUovcGAIYyfvvKUIbQJgBDYn5nuQF7ADx8/X5QzL9PboA+CwAY9vodRAW2AJjC6zceFdgBYMyEj6MEkQ0AKE9/yErfWKLPVrpWYAOA23f3cEnpXUX6AUgR8hkODXUDQGGYNCkLDfUCwD3vG/EH9AIwZarXUapYJwAc8b7R/IA+AA6p7OWSgopiXQCkyvM7Wi/QAwA5Vinz/GOuFwh2CvUAINnpU+wU6gBgjKpebgmtKpYPwO1dvLRL4C5ksgHgXOFzsnIoFwBtHr/SyEAmAFLTvAbTxfIA0BruKQ0P5QEgYW3fUQ2BLAAshHvKwkM5ADz//KXyKvrtrgGwFOsryxHwA4DOZ4WAFwCLiR5liSI+AKwmepQlingAQOeLgYAHAM1Lu8aWkAEAAAAAAAAAAICkAHhM+QpNEfMAoKGun1uJ7ivgAUBTbT+XEt1TwJcHgLplOg9AhkRQdyLIfCrYU+HHvkpYKMIHgKSNHaQp4UYTfABMuZWrdiXcipZ3OdhD8ee+Srz3IC8AKAa5q8RFIbwADD3KxaL3n7hUnL8kDGnh5OlfWQDAGWRx/mRVBWMUYLs/QAYA3n0BxmPp5NwY4nmFkHFHMVm3hnnMCzCfOSALAI+rhMx7Bci7O9jTGoGAzaVlbhDhISoQsmlUIwCFt7N/nM37t61oAmCOjSGn7XxBG0fOmwCYYXdQF51PNgtNwhaxLjq/Cm2qH1xJg0BzCRl9d4H7Ba+6ABC5X7DGbKHgcwPKLgByyecDathDkL6j8PME89Cl+gkbyecFSd5Uir6b8HODNmGXNBwdQ2lUSTea0ndRcmpY2QeATNOxsZwg0GcrOz42C31UP3Gp6SBEuvooxZrq+Hj6LIVHyC9DX8Wk0Fbjwch0cyV10JgOI70XvaeCw6DabNua/NHsC/QZGajcmpwzGq77QEHPoefSa+i1Cq/0w+b+FgjWBn58a1Eqzd9kDEWZKW0dDlXMC2wNN4512+6M+3tAsEBDqrVFGEMW/AGHVoYxpS00dG7LMIUwEji88lt8AjiGMh2+RUihGB2s0ehyQr3B3v6AKQGjAe9VXwZOxbQxHEQGR2/v9O7EIGRxRNigc6Zbz49tnAXJij5CKa3GUKmtYlvmQaviNDGPN5+UsE4rYlvNAgRB0KT6A0WJ6k+LqcqXAAAAAElFTkSuQmCC";
+let flash = 0;
+
+const store = {
+  ownsScheduling: true,
+
+  async load() {
+    try { return JSON.parse(localStorage.getItem(KEY) || "null"); }
+    catch (e) { return null; }
+  },
+
+  async save(state) {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  },
+
+  subscribe(fn) {
+    window.addEventListener("storage", (e) => {
+      if (e.key !== KEY || !e.newValue) return;
+      try { fn(JSON.parse(e.newValue)); } catch (err) {}
+    });
+  },
+
+  notify({ title, body }) {
+    if (!("Notification" in window) || Notification.permission !== "granted") return;
+    const note = new Notification(title, {
+      body,
+      icon: ICON,
+      tag: "water-check",
+      renotify: true,
+      requireInteraction: true,
+    });
+    note.onclick = () => { window.focus(); note.close(); };
+  },
+
+  /* The tab title keeps asking too, in case the pop-up gets buried. */
+  onTick(view) {
+    if (view.mode === "asking") {
+      flash = (flash + 1) % 2;
+      document.title = flash ? "DID YOU DRINK WATER?" : "· · ·";
+    } else {
+      document.title = `${view.clock} · ${view.count}/${view.goal} glasses`;
+    }
+  },
+};
+
+/* Installable when served over http(s); harmless when opened as a file. */
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
+
+/* Ask for pop-up permission the first time she touches the page. */
+document.addEventListener("pointerdown", () => {
+  if ("Notification" in window && Notification.permission === "default") {
+    Notification.requestPermission();
+  }
+}, { once: true });
+
+WaterCheck.mount(store);
+
+</script>
+</body>
+</html>
