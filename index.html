@@ -165,26 +165,26 @@ body {
   min-height: 1.4em;
 }
 
-/* ---------- the cat ---------- */
+/* ---------- the dog ---------- */
 
-.cat {
+.pet {
   width: clamp(190px, 52vw, 260px);
   height: clamp(190px, 52vw, 260px);
   display: block;
   animation: sway 4.6s ease-in-out infinite;
 }
 
-.cat svg { display: block; width: 100% !important; height: 100% !important; }
+.pet svg { display: block; width: 100% !important; height: 100% !important; }
 
 @keyframes sway {
   0%, 100% { transform: rotate(-2deg) translateY(0); }
   50%      { transform: rotate(2deg) translateY(-7px); }
 }
 
-.cat .lottie-holder { width: 100%; height: 100%; }
+.pet .lottie-holder { width: 100%; height: 100%; }
 
 /* she said yes: a little hop */
-.cat.is-drunk { animation: hop .55s cubic-bezier(.3,1.6,.5,1) 2; }
+.pet.is-drunk { animation: hop .55s cubic-bezier(.3,1.6,.5,1) 2; }
 
 @keyframes hop {
   0%, 100% { transform: translateY(0) scale(1); }
@@ -309,7 +309,7 @@ body {
 
   <h1 class="title" id="title">Did you drink water?</h1>
 
-  <div class="cat" id="cat" role="img" aria-label="A cat"></div>
+  <div class="pet" id="pet" role="img" aria-label="A dog"></div>
 
   <p class="sub" id="sub"></p>
 
@@ -331,31 +331,32 @@ body {
 <script src="lottie_light.min.js"></script>
 <script>
 /* ===========================================================
-   Nine cats — one for every time the question comes back.
+   Nine dogs — one for every time the question comes back.
+   Four of them are golden retrievers; the rest are a mixed pack.
 
    These are Lottie animations from the LottieFiles free
    library, bundled locally so they keep working with no
    connection and can never 404. See CREDITS.md.
 
-   The hand-drawn set that came before them is kept in
-   cats-drawn.js.bak if you ever want it back.
+   The hand-drawn cat that started all this is kept in
+   cats-drawn.js.bak.
    =========================================================== */
 
-const Cats = (() => {
+const Dogs = (() => {
 
-  const CATS = [
-    { file: "lottie/1-cushion.json", name: "on her cushion" },
-    { file: "lottie/2-calico.json",  name: "calico, waiting" },
-    { file: "lottie/3-tuxedo.json",  name: "tuxedo, pleased with herself" },
-    { file: "lottie/4-playing.json", name: "playing" },
-    { file: "lottie/5-napping.json", name: "napping" },
-    { file: "lottie/6-peeking.json", name: "peeking" },
-    { file: "lottie/7-sitting.json", name: "sitting very still" },
-    { file: "lottie/8-working.json", name: "at her desk" },
-    { file: "lottie/9-moon.json",    name: "fishing off the moon" },
+  const DOGS = [
+    { file: "lottie/1-golden-sitting.json", name: "golden retriever, sitting" },
+    { file: "lottie/2-golden-happy.json",   name: "golden, delighted about it" },
+    { file: "lottie/3-golden-puppy.json",   name: "golden puppy" },
+    { file: "lottie/4-splashing.json",      name: "in the water already" },
+    { file: "lottie/5-corgi.json",          name: "corgi, trotting" },
+    { file: "lottie/6-shiba.json",          name: "shiba in a bandana" },
+    { file: "lottie/7-frenchie.json",       name: "french bulldog" },
+    { file: "lottie/8-golden-napping.json", name: "golden, fast asleep" },
+    { file: "lottie/9-poodle.json",         name: "poodle puppy" },
   ];
 
-  const wrap = (i) => ((i % CATS.length) + CATS.length) % CATS.length;
+  const wrap = (i) => ((i % DOGS.length) + DOGS.length) % DOGS.length;
 
   /* One step further round the ring for every glass, offset by the day so
      tomorrow does not open the same way. */
@@ -365,14 +366,14 @@ const Cats = (() => {
   }
 
   return {
-    count: CATS.length,
+    count: DOGS.length,
     indexFor,
-    file: (i) => CATS[wrap(i)].file,
-    name: (i) => CATS[wrap(i)].name,
+    file: (i) => DOGS[wrap(i)].file,
+    name: (i) => DOGS[wrap(i)].name,
   };
 })();
 
-if (typeof module !== "undefined") module.exports = Cats;
+if (typeof module !== "undefined") module.exports = Dogs;
 
 </script>
 <script>
@@ -479,7 +480,7 @@ const WaterCheck = (() => {
     if (typeof state.pending !== "number") state.pending = null;
 
     if (fresh) {
-      // First run: ask straight away, so she meets the cat instead of a timer.
+      // First run: ask straight away, so she meets a dog instead of a timer.
       const now = Date.now();
       if (awake(now, state.settings)) {
         state.pending = now;
@@ -523,7 +524,7 @@ const WaterCheck = (() => {
   async function mount(store) {
     const $ = (id) => document.getElementById(id);
     const el = {
-      page: $("page"), title: $("title"), sub: $("sub"), cat: $("cat"),
+      page: $("page"), title: $("title"), sub: $("sub"), pet: $("pet"),
       yes: $("yes"), no: $("no"),
       ticks: $("ticks"), clock: $("clock"), log: $("log"), undo: $("undo"),
     };
@@ -629,13 +630,13 @@ const WaterCheck = (() => {
       resetNo();
       store.save(state);
 
-      clearTimeout(gladTimer);                   // she hops, the glass empties and refills
-      el.cat.classList.remove("is-drunk");
-      void el.cat.offsetWidth;
-      el.cat.classList.add("is-drunk");
+      clearTimeout(gladTimer);                   // a little hop, then the next dog
+      el.pet.classList.remove("is-drunk");
+      void el.pet.offsetWidth;
+      el.pet.classList.add("is-drunk");
       gladTimer = setTimeout(() => {
-        el.cat.classList.remove("is-drunk");
-        renderCat(true);                       // next cat, next question
+        el.pet.classList.remove("is-drunk");
+        renderDog(true);                       // next dog, next question
       }, 1300);
 
       render();
@@ -656,29 +657,37 @@ const WaterCheck = (() => {
 
     /* ---------- render ---------- */
 
-    /* A different cat every time the question comes back. The swap waits
+    /* A different dog every time the question comes back. The swap waits
        until the celebration is over, so she does not change mid-hop. */
-    let shownCat = -1;
+    let shownDog = -1;
 
     let player = null;
 
-    function renderCat(force) {
-      if (typeof Cats === "undefined" || typeof lottie === "undefined") return;
-      const want = Cats.indexFor(entriesFor(state).length);
-      if (want === shownCat) return;
-      if (!force && el.cat.classList.contains("is-drunk")) return;
-      shownCat = want;
+    function renderDog(force) {
+      if (typeof Dogs === "undefined" || typeof lottie === "undefined") return;
+      const want = Dogs.indexFor(entriesFor(state).length);
+      if (want === shownDog) return;
+      if (!force && el.pet.classList.contains("is-drunk")) return;
+      shownDog = want;
 
-      if (player) { player.destroy(); player = null; }
-      el.cat.textContent = "";
-      player = lottie.loadAnimation({
-        container: el.cat,
-        renderer: "svg",
-        loop: true,
-        autoplay: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-        path: Cats.file(want),
-      });
-      if (!player.isPlaying) player.goToAndStop(0, true);
+      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      try {
+        if (player) { player.destroy(); player = null; }
+        el.pet.textContent = "";
+        player = lottie.loadAnimation({
+          container: el.pet,
+          renderer: "svg",
+          loop: true,
+          autoplay: !still,
+          path: Dogs.file(want),
+        });
+        // Hold on the first frame for anyone who asked for less movement —
+        // but only once the animation is actually loaded.
+        if (still) player.addEventListener("DOMLoaded", () => player.goToAndStop(0, true));
+      } catch (e) {
+        shownDog = -1;          // let the next render try again
+      }
     }
 
     function renderTicks() {
@@ -725,7 +734,7 @@ const WaterCheck = (() => {
         el.sub.textContent = "";
       }
 
-      renderCat();
+      renderDog();
       renderTicks();
       el.undo.disabled = count === 0;
       tick();
