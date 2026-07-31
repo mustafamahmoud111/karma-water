@@ -168,7 +168,6 @@ body {
 /* ---------- the dog ---------- */
 
 .stage {
-  position: relative;
   width: clamp(190px, 52vw, 260px);
   height: clamp(190px, 52vw, 260px);
   animation: sway 4.6s ease-in-out infinite;
@@ -182,15 +181,18 @@ body {
   50%      { transform: rotate(2deg) translateY(-7px); }
 }
 
-/* ---------- the waterfall she gets for saying yes ---------- */
+/* ---------- the waterfall she gets for saying yes ----------
+   Covers the whole screen, not just the dog — the swap happens
+   underneath while everything is hidden, so it reads as one dog
+   being washed away and another arriving, not a jump-cut. */
 
 .pour {
-  position: absolute;
-  inset: -6% -14% -10%;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
   overflow: hidden;
   pointer-events: none;
   opacity: 0;
-  border-radius: 18px;
 }
 
 .pour.is-on { opacity: 1; }
@@ -198,8 +200,8 @@ body {
 /* the falling sheet of water, with a rounded leading edge */
 .pour .sheet {
   position: absolute;
-  left: -2%;
-  right: -2%;
+  left: -4%;
+  right: -4%;
   height: 190%;
   top: -200%;
   background:
@@ -207,48 +209,54 @@ body {
       color-mix(in srgb, var(--water-back) 88%, transparent) 0%,
       var(--water) 55%,
       color-mix(in srgb, var(--water) 92%, var(--accent)) 100%);
-  border-radius: 0 0 48% 48% / 0 0 22% 22%;
-  box-shadow: inset 0 -14px 22px -14px rgba(255, 255, 255, .8);
+  border-radius: 0 0 46% 46% / 0 0 7% 7%;
+  box-shadow: inset 0 -18px 28px -16px rgba(255, 255, 255, .8);
 }
 
-.pour.is-on .sheet { animation: pour 1.25s cubic-bezier(.55, 0, .3, 1) forwards; }
+.pour.is-on .sheet { animation: pour 1.35s cubic-bezier(.55, 0, .3, 1) forwards; }
 
 @keyframes pour {
   0%   { top: -200%; }
-  34%  { top: -8%; }      /* fully covered — the dog is swapped under here */
-  56%  { top: -8%; }
+  30%  { top: -8%; }      /* fully covers the screen — the swap happens here */
+  62%  { top: -8%; }
   100% { top: 118%; }
 }
 
-/* a few drops running ahead of it */
+/* a few drops running ahead of it, spread across the whole width */
 .pour i {
   position: absolute;
-  top: -14%;
-  width: 7px;
-  height: 16px;
+  top: -10%;
+  width: 9px;
+  height: 20px;
   border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
   background: var(--water);
   opacity: 0;
 }
 
-.pour i:nth-child(2) { left: 12%; }
-.pour i:nth-child(3) { left: 30%; width: 5px; height: 12px; }
-.pour i:nth-child(4) { left: 48%; }
-.pour i:nth-child(5) { left: 66%; width: 6px; height: 14px; }
-.pour i:nth-child(6) { left: 82%; }
-.pour i:nth-child(7) { left: 94%; width: 5px; height: 11px; }
+.pour i:nth-child(1) { left: 3%; }
+.pour i:nth-child(2) { left: 15%; width: 7px; height: 16px; }
+.pour i:nth-child(3) { left: 28%; }
+.pour i:nth-child(4) { left: 41%; width: 7px; height: 15px; }
+.pour i:nth-child(5) { left: 54%; }
+.pour i:nth-child(6) { left: 67%; width: 7px; height: 16px; }
+.pour i:nth-child(7) { left: 80%; }
+.pour i:nth-child(8) { left: 90%; width: 6px; height: 14px; }
+.pour i:nth-child(9) { left: 97%; }
 
-.pour.is-on i { animation: drip .62s ease-in forwards; }
-.pour.is-on i:nth-child(3) { animation-delay: .07s; }
-.pour.is-on i:nth-child(4) { animation-delay: .03s; }
-.pour.is-on i:nth-child(5) { animation-delay: .11s; }
-.pour.is-on i:nth-child(6) { animation-delay: .05s; }
-.pour.is-on i:nth-child(7) { animation-delay: .13s; }
+.pour.is-on i { animation: drip .68s ease-in forwards; }
+.pour.is-on i:nth-child(2) { animation-delay: .04s; }
+.pour.is-on i:nth-child(3) { animation-delay: .09s; }
+.pour.is-on i:nth-child(4) { animation-delay: .02s; }
+.pour.is-on i:nth-child(5) { animation-delay: .12s; }
+.pour.is-on i:nth-child(6) { animation-delay: .06s; }
+.pour.is-on i:nth-child(7) { animation-delay: .1s; }
+.pour.is-on i:nth-child(8) { animation-delay: .03s; }
+.pour.is-on i:nth-child(9) { animation-delay: .08s; }
 
 @keyframes drip {
   0%   { opacity: 0; transform: translateY(0) scaleY(1); }
-  20%  { opacity: 1; }
-  100% { opacity: 0; transform: translateY(150px) scaleY(1.7); }
+  16%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(220px) scaleY(1.8); }
 }
 
 /* the new dog arrives a touch wet */
@@ -375,16 +383,17 @@ body {
   <span></span><span></span><span></span><span></span><span></span><span></span>
 </div>
 
+<div class="pour" id="pour" aria-hidden="true">
+  <span class="sheet"></span>
+  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+</div>
+
 <main class="page" id="page" data-mode="waiting">
 
   <h1 class="title" id="title">Did you drink water?</h1>
 
   <div class="stage" id="stage">
     <div class="pet" id="pet" role="img" aria-label="A dog"></div>
-    <div class="pour" id="pour" aria-hidden="true">
-      <span class="sheet"></span>
-      <i></i><i></i><i></i><i></i><i></i><i></i>
-    </div>
   </div>
 
   <p class="sub" id="sub"></p>
@@ -739,12 +748,12 @@ const WaterCheck = (() => {
       setTimeout(() => {                         // hidden under the water
         renderDog(true);
         el.pet.classList.add("is-fresh");
-      }, 430);
+      }, 480);
 
       gladTimer = setTimeout(() => {
         el.pour.classList.remove("is-on");
         el.pet.classList.remove("is-fresh");
-      }, 1300);
+      }, 1450);
     }
 
     /* ---------- render ---------- */
