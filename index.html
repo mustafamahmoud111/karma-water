@@ -191,10 +191,10 @@ body {
 }
 
 /* ---------- the waterfall she gets for saying yes ----------
-   Sized to the dog's own box, not the whole screen. It is fully
-   opaque — nothing shows through — and actually flows: layered
-   streaks scroll downward the whole time it's up, with foam at
-   the base. The dog swap happens once it's fully covered. */
+   Sized to the dog's own box, not the whole screen. Three copies of
+   a real Lottie waterfall asset (see CREDITS.md), cropped in tight
+   and mirrored on alternates, sit over an opaque backdrop so nothing
+   shows through. The dog swap happens once it's fully covered. */
 
 .pour {
   position: absolute;
@@ -214,7 +214,7 @@ body {
   width: 100%;
   height: 190%;
   top: -200%;
-  display: block;
+  background: linear-gradient(180deg, var(--water-back) 0%, var(--water-deep) 100%);
 }
 
 .pour.is-on .pour-art { animation: pour 1.35s cubic-bezier(.55, 0, .3, 1) forwards; }
@@ -226,22 +226,30 @@ body {
   100% { top: 118%; }
 }
 
-.streaks path { fill: var(--water); opacity: .85; }
-.streaks--b { transform: translateY(-210px); }
-
-/* the streaks keep scrolling downward for as long as the sheet is up */
-.pour.is-on .streaks       { animation: flow 900ms linear infinite; }
-.pour.is-on .streaks--b    { animation: flow-b 900ms linear infinite; }
-
-@keyframes flow {
-  from { transform: translateY(0); }
-  to   { transform: translateY(210px); }
+/* each fall is a cropped, zoomed-in window onto one Lottie instance —
+   sized so the crop reads at roughly 1:1 with the dog's own box, even
+   though pour-art itself is taller (it needs the extra height to slide) */
+.fall {
+  position: absolute;
+  top: 0;
+  height: 52.6316%;
+  overflow: hidden;
 }
 
-@keyframes flow-b {
-  from { transform: translateY(-210px); }
-  to   { transform: translateY(0); }
+.fall--l { left: -6%;  width: 44%; }
+.fall--m { left: 33%;  width: 44%; }
+.fall--r { left: 70%;  width: 44%; }
+
+.fall-inner {
+  position: absolute;
+  width: 1000px;
+  height: 1000px;
+  transform: scale(2.1) translate(-24%, -4%);
 }
+
+.fall-inner--mirror { transform: scale(2.1) translate(18%, -4%) scaleX(-1); }
+
+.fall-inner svg { display: block; }
 
 /* where the water lands — pinned to the bottom of the box, not the
    scrolling artwork, so it reads as a splash rather than scrolling past */
@@ -409,40 +417,13 @@ body {
     <div class="pet" id="pet" role="img" aria-label="A dog"></div>
 
     <div class="pour" id="pour" aria-hidden="true">
-      <svg class="pour-art" viewBox="0 0 200 210" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="pourBase" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="var(--water-back)" />
-            <stop offset="1" stop-color="var(--water-deep)" />
-          </linearGradient>
-          <clipPath id="pourClip"><rect x="0" y="0" width="200" height="210" /></clipPath>
-        </defs>
-
-        <!-- opaque body — nothing shows through -->
-        <rect x="0" y="0" width="200" height="210" fill="url(#pourBase)" />
-
-        <!-- streaks of flowing water, two stacked copies looping seamlessly -->
-        <g clip-path="url(#pourClip)">
-          <g class="streaks">
-            <path d="M14 0q6 20-2 38t4 40-3 42t5 40v50H0V0Z" />
-            <path d="M40 0q-8 22 2 40t-6 38 4 44v48H26V0Z" />
-            <path d="M68 0q7 18-3 36t5 42-4 40t6 42v50H55V0Z" />
-            <path d="M96 0q-6 24 4 40t-5 38 3 44v48H83V0Z" />
-            <path d="M124 0q8 20-2 38t6 40-4 42t5 40v50H110V0Z" />
-            <path d="M152 0q-7 22 3 38t-5 40 4 44v48H138V0Z" />
-            <path d="M180 0q6 18-3 38t5 42-4 38t4 42v50H166V0Z" />
-          </g>
-          <g class="streaks streaks--b">
-            <path d="M14 0q6 20-2 38t4 40-3 42t5 40v50H0V0Z" />
-            <path d="M40 0q-8 22 2 40t-6 38 4 44v48H26V0Z" />
-            <path d="M68 0q7 18-3 36t5 42-4 40t6 42v50H55V0Z" />
-            <path d="M96 0q-6 24 4 40t-5 38 3 44v48H83V0Z" />
-            <path d="M124 0q8 20-2 38t6 40-4 42t5 40v50H110V0Z" />
-            <path d="M152 0q-7 22 3 38t-5 40 4 44v48H138V0Z" />
-            <path d="M180 0q6 18-3 38t5 42-4 38t4 42v50H166V0Z" />
-          </g>
-        </g>
-      </svg>
+      <div class="pour-art">
+        <!-- three copies of the same waterfall asset, cropped in tight and
+             mirrored on alternates, so the falls sit side by side -->
+        <div class="fall fall--l"><div class="fall-inner" id="fall1"></div></div>
+        <div class="fall fall--m"><div class="fall-inner fall-inner--mirror" id="fall2"></div></div>
+        <div class="fall fall--r"><div class="fall-inner" id="fall3"></div></div>
+      </div>
 
       <!-- foam where the water lands — fades in only while it's covering -->
       <svg class="foam-art" viewBox="0 0 200 32" preserveAspectRatio="none">
@@ -791,6 +772,24 @@ const WaterCheck = (() => {
       render();
     });
 
+    /* The three copies of the waterfall asset that make up the pour. Built
+       once, lazily, from the same bundled animation — played only while
+       she's actually seeing them, paused the rest of the time. */
+    let fallPlayers = null;
+
+    function ensureFalls() {
+      if (fallPlayers || typeof lottie === "undefined") return fallPlayers;
+      const ids = ["fall1", "fall2", "fall3"];
+      const containers = ids.map((id) => document.getElementById(id)).filter(Boolean);
+      if (containers.length < 3) return null;
+      fallPlayers = containers.map((container) =>
+        lottie.loadAnimation({
+          container, renderer: "svg", loop: true, autoplay: false,
+          path: "lottie/pour-waterfall.json",
+        }));
+      return fallPlayers;
+    }
+
     /* Saying yes tips a sheet of water over her. The swap happens while the
        screen is covered, so the next dog is simply there when it clears. */
     function pourWater() {
@@ -803,6 +802,9 @@ const WaterCheck = (() => {
       void el.pour.offsetWidth;                  // restart the animation
       el.pour.classList.add("is-on");
 
+      const falls = ensureFalls();
+      if (falls) falls.forEach((p) => p.play());
+
       setTimeout(() => {                         // hidden under the water
         renderDog(true);
         el.pet.classList.add("is-fresh");
@@ -811,6 +813,7 @@ const WaterCheck = (() => {
       gladTimer = setTimeout(() => {
         el.pour.classList.remove("is-on");
         el.pet.classList.remove("is-fresh");
+        if (falls) falls.forEach((p) => p.pause());
       }, 1450);
     }
 
