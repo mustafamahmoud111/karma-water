@@ -3,10 +3,7 @@
 const CACHE = "watercheck-v1";
 const FILES = ["./", "./index.html", "./icon-192.png", "./icon-512.png",
   "./manifest.webmanifest", "./lottie_light.min.js",
-  "./lottie/1-golden-sitting.json", "./lottie/2-golden-happy.json",
-  "./lottie/3-golden-puppy.json", "./lottie/4-splashing.json", "./lottie/5-corgi.json",
-  "./lottie/6-shiba.json", "./lottie/7-frenchie.json", "./lottie/8-golden-napping.json",
-  "./lottie/9-poodle.json"];
+  "./lottie/1-golden-sitting.json", "./lottie/2-golden-happy.json", "./lottie/3-golden-puppy.json", "./lottie/4-splashing.json", "./lottie/5-corgi.json", "./lottie/6-shiba.json", "./lottie/7-frenchie.json", "./lottie/8-golden-napping.json", "./lottie/9-poodle.json"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)).then(() => self.skipWaiting()));

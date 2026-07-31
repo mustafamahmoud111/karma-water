@@ -167,13 +167,14 @@ body {
 
 /* ---------- the dog ---------- */
 
-.pet {
+.stage {
+  position: relative;
   width: clamp(190px, 52vw, 260px);
   height: clamp(190px, 52vw, 260px);
-  display: block;
   animation: sway 4.6s ease-in-out infinite;
 }
 
+.pet { width: 100%; height: 100%; }
 .pet svg { display: block; width: 100% !important; height: 100% !important; }
 
 @keyframes sway {
@@ -181,14 +182,83 @@ body {
   50%      { transform: rotate(2deg) translateY(-7px); }
 }
 
-.pet .lottie-holder { width: 100%; height: 100%; }
+/* ---------- the waterfall she gets for saying yes ---------- */
 
-/* she said yes: a little hop */
-.pet.is-drunk { animation: hop .55s cubic-bezier(.3,1.6,.5,1) 2; }
+.pour {
+  position: absolute;
+  inset: -6% -14% -10%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  border-radius: 18px;
+}
 
-@keyframes hop {
-  0%, 100% { transform: translateY(0) scale(1); }
-  40%      { transform: translateY(-22px) scale(1.05); }
+.pour.is-on { opacity: 1; }
+
+/* the falling sheet of water, with a rounded leading edge */
+.pour .sheet {
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  height: 190%;
+  top: -200%;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--water-back) 88%, transparent) 0%,
+      var(--water) 55%,
+      color-mix(in srgb, var(--water) 92%, var(--accent)) 100%);
+  border-radius: 0 0 48% 48% / 0 0 22% 22%;
+  box-shadow: inset 0 -14px 22px -14px rgba(255, 255, 255, .8);
+}
+
+.pour.is-on .sheet { animation: pour 1.25s cubic-bezier(.55, 0, .3, 1) forwards; }
+
+@keyframes pour {
+  0%   { top: -200%; }
+  34%  { top: -8%; }      /* fully covered — the dog is swapped under here */
+  56%  { top: -8%; }
+  100% { top: 118%; }
+}
+
+/* a few drops running ahead of it */
+.pour i {
+  position: absolute;
+  top: -14%;
+  width: 7px;
+  height: 16px;
+  border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
+  background: var(--water);
+  opacity: 0;
+}
+
+.pour i:nth-child(2) { left: 12%; }
+.pour i:nth-child(3) { left: 30%; width: 5px; height: 12px; }
+.pour i:nth-child(4) { left: 48%; }
+.pour i:nth-child(5) { left: 66%; width: 6px; height: 14px; }
+.pour i:nth-child(6) { left: 82%; }
+.pour i:nth-child(7) { left: 94%; width: 5px; height: 11px; }
+
+.pour.is-on i { animation: drip .62s ease-in forwards; }
+.pour.is-on i:nth-child(3) { animation-delay: .07s; }
+.pour.is-on i:nth-child(4) { animation-delay: .03s; }
+.pour.is-on i:nth-child(5) { animation-delay: .11s; }
+.pour.is-on i:nth-child(6) { animation-delay: .05s; }
+.pour.is-on i:nth-child(7) { animation-delay: .13s; }
+
+@keyframes drip {
+  0%   { opacity: 0; transform: translateY(0) scaleY(1); }
+  20%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(150px) scaleY(1.7); }
+}
+
+/* the new dog arrives a touch wet */
+.pet.is-fresh { animation: shake-off .7s cubic-bezier(.3, 1.5, .5, 1); }
+
+@keyframes shake-off {
+  0%   { transform: scale(.92) translateY(6px); }
+  45%  { transform: scale(1.03) rotate(1.5deg); }
+  70%  { transform: scale(1) rotate(-1.5deg); }
+  100% { transform: scale(1) rotate(0); }
 }
 
 /* ---------- yes / no ---------- */
@@ -295,7 +365,7 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: .001ms !important;
   }
-  .bubbles { display: none; }
+  .bubbles, .pour { display: none; }
 }
 
 </style>
@@ -309,7 +379,13 @@ body {
 
   <h1 class="title" id="title">Did you drink water?</h1>
 
-  <div class="pet" id="pet" role="img" aria-label="A dog"></div>
+  <div class="stage" id="stage">
+    <div class="pet" id="pet" role="img" aria-label="A dog"></div>
+    <div class="pour" id="pour" aria-hidden="true">
+      <span class="sheet"></span>
+      <i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+  </div>
 
   <p class="sub" id="sub"></p>
 
@@ -524,7 +600,8 @@ const WaterCheck = (() => {
   async function mount(store) {
     const $ = (id) => document.getElementById(id);
     const el = {
-      page: $("page"), title: $("title"), sub: $("sub"), pet: $("pet"),
+      page: $("page"), title: $("title"), sub: $("sub"),
+      pet: $("pet"), pour: $("pour"),
       yes: $("yes"), no: $("no"),
       ticks: $("ticks"), clock: $("clock"), log: $("log"), undo: $("undo"),
     };
@@ -630,15 +707,7 @@ const WaterCheck = (() => {
       resetNo();
       store.save(state);
 
-      clearTimeout(gladTimer);                   // a little hop, then the next dog
-      el.pet.classList.remove("is-drunk");
-      void el.pet.offsetWidth;
-      el.pet.classList.add("is-drunk");
-      gladTimer = setTimeout(() => {
-        el.pet.classList.remove("is-drunk");
-        renderDog(true);                       // next dog, next question
-      }, 1300);
-
+      pourWater();
       render();
     }
 
@@ -655,10 +724,32 @@ const WaterCheck = (() => {
       render();
     });
 
+    /* Saying yes tips a sheet of water over her. The swap happens while the
+       screen is covered, so the next dog is simply there when it clears. */
+    function pourWater() {
+      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (still || !el.pour) { renderDog(true); return; }
+
+      clearTimeout(gladTimer);
+      el.pour.classList.remove("is-on");
+      el.pet.classList.remove("is-fresh");
+      void el.pour.offsetWidth;                  // restart the animation
+      el.pour.classList.add("is-on");
+
+      setTimeout(() => {                         // hidden under the water
+        renderDog(true);
+        el.pet.classList.add("is-fresh");
+      }, 430);
+
+      gladTimer = setTimeout(() => {
+        el.pour.classList.remove("is-on");
+        el.pet.classList.remove("is-fresh");
+      }, 1300);
+    }
+
     /* ---------- render ---------- */
 
-    /* A different dog every time the question comes back. The swap waits
-       until the celebration is over, so she does not change mid-hop. */
+    /* A different dog every time the question comes back. */
     let shownDog = -1;
 
     let player = null;
@@ -667,7 +758,6 @@ const WaterCheck = (() => {
       if (typeof Dogs === "undefined" || typeof lottie === "undefined") return;
       const want = Dogs.indexFor(entriesFor(state).length);
       if (want === shownDog) return;
-      if (!force && el.pet.classList.contains("is-drunk")) return;
       shownDog = want;
 
       const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
