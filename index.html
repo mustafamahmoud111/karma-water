@@ -29,6 +29,8 @@
   --pink-soft:  #FFD3DE;
   --water:      #7ED8EA;
   --water-back: #B9EBF4;
+  --water-deep: #167A93;
+  --foam:       #F2FBFD;
 
   /* the cat keeps her own colours in both themes */
   --fur:        #FFF8F2;
@@ -54,6 +56,8 @@
     --pink-soft:  #F0AABB;
     --water:      #3BB0C7;
     --water-back: #2A8DA3;
+    --water-deep: #0C4C5C;
+    --foam:       #DFF4F7;
     color-scheme: dark;
   }
 }
@@ -71,6 +75,8 @@
   --pink-soft:  #F0AABB;
   --water:      #3BB0C7;
   --water-back: #2A8DA3;
+  --water-deep: #0C4C5C;
+  --foam:       #DFF4F7;
   color-scheme: dark;
 }
 
@@ -87,6 +93,8 @@
   --pink-soft:  #FFD3DE;
   --water:      #7ED8EA;
   --water-back: #B9EBF4;
+  --water-deep: #167A93;
+  --foam:       #F2FBFD;
   color-scheme: light;
 }
 
@@ -168,6 +176,7 @@ body {
 /* ---------- the dog ---------- */
 
 .stage {
+  position: relative;
   width: clamp(190px, 52vw, 260px);
   height: clamp(190px, 52vw, 260px);
   animation: sway 4.6s ease-in-out infinite;
@@ -182,81 +191,90 @@ body {
 }
 
 /* ---------- the waterfall she gets for saying yes ----------
-   Covers the whole screen, not just the dog — the swap happens
-   underneath while everything is hidden, so it reads as one dog
-   being washed away and another arriving, not a jump-cut. */
+   Sized to the dog's own box, not the whole screen. It is fully
+   opaque — nothing shows through — and actually flows: layered
+   streaks scroll downward the whole time it's up, with foam at
+   the base. The dog swap happens once it's fully covered. */
 
 .pour {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  z-index: 20;
   overflow: hidden;
+  border-radius: 14%;
   pointer-events: none;
   opacity: 0;
 }
 
 .pour.is-on { opacity: 1; }
 
-/* the falling sheet of water, with a rounded leading edge */
-.pour .sheet {
+.pour-art {
   position: absolute;
-  left: -4%;
-  right: -4%;
+  left: 0;
+  right: 0;
+  width: 100%;
   height: 190%;
   top: -200%;
-  background:
-    linear-gradient(180deg,
-      color-mix(in srgb, var(--water-back) 88%, transparent) 0%,
-      var(--water) 55%,
-      color-mix(in srgb, var(--water) 92%, var(--accent)) 100%);
-  border-radius: 0 0 46% 46% / 0 0 7% 7%;
-  box-shadow: inset 0 -18px 28px -16px rgba(255, 255, 255, .8);
+  display: block;
 }
 
-.pour.is-on .sheet { animation: pour 1.35s cubic-bezier(.55, 0, .3, 1) forwards; }
+.pour.is-on .pour-art { animation: pour 1.35s cubic-bezier(.55, 0, .3, 1) forwards; }
 
 @keyframes pour {
   0%   { top: -200%; }
-  30%  { top: -8%; }      /* fully covers the screen — the swap happens here */
+  30%  { top: -8%; }      /* fully covers the dog — the swap happens here */
   62%  { top: -8%; }
   100% { top: 118%; }
 }
 
-/* a few drops running ahead of it, spread across the whole width */
-.pour i {
+.streaks path { fill: var(--water); opacity: .85; }
+.streaks--b { transform: translateY(-210px); }
+
+/* the streaks keep scrolling downward for as long as the sheet is up */
+.pour.is-on .streaks       { animation: flow 900ms linear infinite; }
+.pour.is-on .streaks--b    { animation: flow-b 900ms linear infinite; }
+
+@keyframes flow {
+  from { transform: translateY(0); }
+  to   { transform: translateY(210px); }
+}
+
+@keyframes flow-b {
+  from { transform: translateY(-210px); }
+  to   { transform: translateY(0); }
+}
+
+/* where the water lands — pinned to the bottom of the box, not the
+   scrolling artwork, so it reads as a splash rather than scrolling past */
+.foam-art {
   position: absolute;
-  top: -10%;
-  width: 9px;
-  height: 20px;
-  border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
-  background: var(--water);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 15%;
   opacity: 0;
 }
 
-.pour i:nth-child(1) { left: 3%; }
-.pour i:nth-child(2) { left: 15%; width: 7px; height: 16px; }
-.pour i:nth-child(3) { left: 28%; }
-.pour i:nth-child(4) { left: 41%; width: 7px; height: 15px; }
-.pour i:nth-child(5) { left: 54%; }
-.pour i:nth-child(6) { left: 67%; width: 7px; height: 16px; }
-.pour i:nth-child(7) { left: 80%; }
-.pour i:nth-child(8) { left: 90%; width: 6px; height: 14px; }
-.pour i:nth-child(9) { left: 97%; }
+.pour.is-on .foam-art { animation: foam-flash 1.35s linear forwards; }
 
-.pour.is-on i { animation: drip .68s ease-in forwards; }
-.pour.is-on i:nth-child(2) { animation-delay: .04s; }
-.pour.is-on i:nth-child(3) { animation-delay: .09s; }
-.pour.is-on i:nth-child(4) { animation-delay: .02s; }
-.pour.is-on i:nth-child(5) { animation-delay: .12s; }
-.pour.is-on i:nth-child(6) { animation-delay: .06s; }
-.pour.is-on i:nth-child(7) { animation-delay: .1s; }
-.pour.is-on i:nth-child(8) { animation-delay: .03s; }
-.pour.is-on i:nth-child(9) { animation-delay: .08s; }
+@keyframes foam-flash {
+  0%, 26%  { opacity: 0; }
+  34%, 58% { opacity: 1; }
+  68%, 100% { opacity: 0; }
+}
 
-@keyframes drip {
-  0%   { opacity: 0; transform: translateY(0) scaleY(1); }
-  16%  { opacity: 1; }
-  100% { opacity: 0; transform: translateY(220px) scaleY(1.8); }
+.foam { fill: var(--foam); }
+.foam-bit { fill: var(--foam); opacity: .9; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .pour.is-on .foam-bit { animation: bob-foam 1.1s ease-in-out infinite; }
+  .pour.is-on .foam-bit:nth-of-type(2) { animation-delay: -.3s; }
+  .pour.is-on .foam-bit:nth-of-type(3) { animation-delay: -.6s; }
+}
+
+@keyframes bob-foam {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
 }
 
 /* the new dog arrives a touch wet */
@@ -383,17 +401,57 @@ body {
   <span></span><span></span><span></span><span></span><span></span><span></span>
 </div>
 
-<div class="pour" id="pour" aria-hidden="true">
-  <span class="sheet"></span>
-  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-</div>
-
 <main class="page" id="page" data-mode="waiting">
 
   <h1 class="title" id="title">Did you drink water?</h1>
 
   <div class="stage" id="stage">
     <div class="pet" id="pet" role="img" aria-label="A dog"></div>
+
+    <div class="pour" id="pour" aria-hidden="true">
+      <svg class="pour-art" viewBox="0 0 200 210" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="pourBase" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="var(--water-back)" />
+            <stop offset="1" stop-color="var(--water-deep)" />
+          </linearGradient>
+          <clipPath id="pourClip"><rect x="0" y="0" width="200" height="210" /></clipPath>
+        </defs>
+
+        <!-- opaque body — nothing shows through -->
+        <rect x="0" y="0" width="200" height="210" fill="url(#pourBase)" />
+
+        <!-- streaks of flowing water, two stacked copies looping seamlessly -->
+        <g clip-path="url(#pourClip)">
+          <g class="streaks">
+            <path d="M14 0q6 20-2 38t4 40-3 42t5 40v50H0V0Z" />
+            <path d="M40 0q-8 22 2 40t-6 38 4 44v48H26V0Z" />
+            <path d="M68 0q7 18-3 36t5 42-4 40t6 42v50H55V0Z" />
+            <path d="M96 0q-6 24 4 40t-5 38 3 44v48H83V0Z" />
+            <path d="M124 0q8 20-2 38t6 40-4 42t5 40v50H110V0Z" />
+            <path d="M152 0q-7 22 3 38t-5 40 4 44v48H138V0Z" />
+            <path d="M180 0q6 18-3 38t5 42-4 38t4 42v50H166V0Z" />
+          </g>
+          <g class="streaks streaks--b">
+            <path d="M14 0q6 20-2 38t4 40-3 42t5 40v50H0V0Z" />
+            <path d="M40 0q-8 22 2 40t-6 38 4 44v48H26V0Z" />
+            <path d="M68 0q7 18-3 36t5 42-4 40t6 42v50H55V0Z" />
+            <path d="M96 0q-6 24 4 40t-5 38 3 44v48H83V0Z" />
+            <path d="M124 0q8 20-2 38t6 40-4 42t5 40v50H110V0Z" />
+            <path d="M152 0q-7 22 3 38t-5 40 4 44v48H138V0Z" />
+            <path d="M180 0q6 18-3 38t5 42-4 38t4 42v50H166V0Z" />
+          </g>
+        </g>
+      </svg>
+
+      <!-- foam where the water lands — fades in only while it's covering -->
+      <svg class="foam-art" viewBox="0 0 200 32" preserveAspectRatio="none">
+        <path class="foam" d="M0 12q10-10 20 0t20-2 20 2 20-3 20 3 20-2 20 2 20-3 20 3v20H0Z" />
+        <ellipse class="foam-bit" cx="34" cy="22" rx="9" ry="6" />
+        <ellipse class="foam-bit" cx="98" cy="25" rx="11" ry="7" />
+        <ellipse class="foam-bit" cx="160" cy="21" rx="8" ry="6" />
+      </svg>
+    </div>
   </div>
 
   <p class="sub" id="sub"></p>
